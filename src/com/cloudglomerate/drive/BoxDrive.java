@@ -25,8 +25,8 @@ import com.cloudglomerate.util.ID;
 public class BoxDrive implements IDrive {
 
 	private BoxResponse boxData;
-	private BoxFolder boxFolder;
 	private ID myID;
+	private BoxFolder currDir, parentDir;
 	BoxExternalAPI iBoxExternalAPI = new SimpleBoxImpl();
 
 
@@ -73,7 +73,6 @@ public class BoxDrive implements IDrive {
 	private void downloadFolder(AbstractFile file, File toLocation)
 	{
 		BoxFolder folder = (BoxFolder) file;
-		folder.getContents().remove(0);
 		for (AbstractFile abfile : folder.getContents())
 		{
 			if (abfile.isFolder() )
@@ -184,9 +183,17 @@ public class BoxDrive implements IDrive {
 			Enumeration preOrder = getAccountTreeResponse.getTree().preorderEnumeration();
 			while(preOrder.hasMoreElements())
 			{
+			
 				DefaultMutableTreeNode node = (DefaultMutableTreeNode) preOrder.nextElement();
 				BoxAbstractFile file = (BoxAbstractFile) node.getUserObject();
-				if (file.isFolder())
+				if (node.isRoot())
+				{
+					parentDir = currDir;
+					currDir = new BoxFolder(myID);
+					currDir.setBoxFolder(file);
+					
+				}
+				else if (file.isFolder())
 				{
 					BoxFolder myFold = new BoxFolder(myID);
 					myFold.setBoxFolder(file);
@@ -215,6 +222,7 @@ public class BoxDrive implements IDrive {
 	@Override
 	public IDrive listParentDirectory(CloudFolder folder) {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
