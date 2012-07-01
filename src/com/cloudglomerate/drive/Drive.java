@@ -1,9 +1,12 @@
 package com.cloudglomerate.drive;
 
 import java.io.File;
+import java.rmi.RemoteException;
 import java.util.Map;
 
-public class Drive implements IDrive {
+import com.cloudglomerate.util.Subscriber;
+
+public class Drive implements IDrive, Subscriber {
 	
 	// integer is the key that identifies the drive
 	private Map<Integer, IDrive> drives;
@@ -48,6 +51,12 @@ public class Drive implements IDrive {
 	public IDrive newFolder(String folderName, CloudFolder where) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void update(Object pub, Object code) throws RemoteException {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
