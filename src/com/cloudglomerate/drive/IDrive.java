@@ -55,4 +55,13 @@ public interface IDrive {
 	 * @return
 	 */
 	public IDrive newFolder(String folderName, CloudFolder where);
+	
+	/**
+	 * Will list the files in the parent directory 
+	 * based on current folder.
+	 * @param folder
+	 * @return
+	 */
+	public IDrive listParentDirectory(CloudFolder folder);
+	
 }

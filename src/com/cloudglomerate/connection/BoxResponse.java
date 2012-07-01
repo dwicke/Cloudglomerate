@@ -9,6 +9,7 @@ public class BoxResponse extends Response{
 
 	private GetTicketResponse ticket;
 	private GetAuthTokenResponse token;
+	private String apiKey = "kvh1n6veb9c4ver0j5bf21yrkz3f148x";
 	
 	public BoxResponse(Status code, Cloud type) {
 		super(code, type);
@@ -32,6 +33,11 @@ public class BoxResponse extends Response{
 	public GetAuthTokenResponse getAuthToken()
 	{
 		return token;
+	}
+	
+	public String getAPIKey()
+	{
+		return apiKey;
 	}
 	
 	

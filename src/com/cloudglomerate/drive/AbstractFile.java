@@ -1,5 +1,8 @@
 package com.cloudglomerate.drive;
 
+import com.cloudglomerate.interfaces.Cloud;
+import com.cloudglomerate.util.ID;
+
 public interface AbstractFile {
 
 	
@@ -14,7 +17,7 @@ public interface AbstractFile {
 	 * Which cloud is the file in.
 	 * @return
 	 */
-	public String whichCloud();
+	public Cloud whichCloud();
 	
 	
 	/**
@@ -22,6 +25,11 @@ public interface AbstractFile {
 	 * @return
 	 */
 	public boolean isFolder();
+	
+	/**
+	 * Which drive based on ID
+	 */
+	public ID getID();
 	
 	
 	

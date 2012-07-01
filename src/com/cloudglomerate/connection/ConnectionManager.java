@@ -22,6 +22,7 @@ public class ConnectionManager {
 	public ConnectionManager()
 	{
 		conns = new HashMap<ID, Connection>();
+		pub = new BasicPublisher();
 	}
 
 	/**
@@ -46,7 +47,8 @@ public class ConnectionManager {
 	/**
 	 * Creates the connection and returns the ID
 	 * that is used to identify the connection and the
-	 * corresponding drive.
+	 * corresponding drive.  Notifies subs by passing the conn
+	 * with a connected status.
 	 * @param resp
 	 * @return
 	 */
@@ -77,7 +79,7 @@ public class ConnectionManager {
 		else
 		{
 			// notify the observers of connection
-			pub.notifySubscribers(this, conn);
+			pub.notifySubscribers(this, resp);
 			// return the id
 			return id;
 		}
@@ -87,6 +89,8 @@ public class ConnectionManager {
 	/**
 	 * Disconnects the connection
 	 * corresponding to the ID.
+	 * Notify sub by passing the connection 
+	 * that has a disconnected status.
 	 * @param connection
 	 * @return
 	 */
@@ -95,7 +99,8 @@ public class ConnectionManager {
 		// Must also notify the drive that to disconnect
 		// this ID.
 		Response re = conns.get(connection).disconnect();
-		pub.notifySubscribers(this, conns.get(connection));
+		conns.remove(connection);
+		pub.notifySubscribers(connection, re);
 		return re;
 	}
 

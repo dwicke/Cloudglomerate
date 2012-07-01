@@ -1,8 +1,11 @@
 package com.cloudglomerate.connection;
 
-interface Connection {
+import com.cloudglomerate.interfaces.Cloud;
+
+public interface Connection {
 
 	Response requestConnection();
 	Response connect();
 	Response disconnect();
+	Cloud getCloud();
 }

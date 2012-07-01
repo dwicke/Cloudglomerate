@@ -1,0 +1,32 @@
+2012-07-01 11:23:27,576 WARN - box4j-config.properties not found in classpath, use box4j-config-default.properties. [cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.core.BoxHTTPManager] 
+2012-07-01 11:23:27,736 DEBUG - ##### doGet-start  #####, url=https://www.box.net/api/1.0/rest?action=get_ticket&api_key=kvh1n6veb9c4ver0j5bf21yrkz3f148x [cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.core.BoxHTTPManager] 
+2012-07-01 11:23:29,373 DEBUG - ##### doGet-end    #####, used time: 1632 ms,response=
+<?xml version="1.0" encoding="UTF-8"?>
+<response><status>get_ticket_ok</status><ticket>ln82k7sqtbk6jfojl1tyqx9iitigs0g0</ticket></response>
+ [cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.core.BoxHTTPManager] 
+2012-07-01 11:23:29,402 DEBUG - ##### doGet-start  #####, url=https://www.box.net/api/1.0/rest?action=get_auth_token&api_key=kvh1n6veb9c4ver0j5bf21yrkz3f148x&ticket=ln82k7sqtbk6jfojl1tyqx9iitigs0g0 [cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.core.BoxHTTPManager] 
+2012-07-01 11:23:29,580 DEBUG - ##### doGet-end    #####, used time: 177 ms,response=
+<?xml version="1.0" encoding="UTF-8"?>
+<response><status>not_logged_in</status></response>
+ [cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.core.BoxHTTPManager] 
+2012-07-01 11:23:29,592 DEBUG - ##### doGet-start  #####, url=https://www.box.net/api/1.0/rest?action=get_ticket&api_key=kvh1n6veb9c4ver0j5bf21yrkz3f148x [cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.core.BoxHTTPManager] 
+2012-07-01 11:23:29,762 DEBUG - ##### doGet-end    #####, used time: 170 ms,response=
+<?xml version="1.0" encoding="UTF-8"?>
+<response><status>get_ticket_ok</status><ticket>8dac0k02ggzj37vypbb2ycmdyopdygmx</ticket></response>
+ [cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.core.BoxHTTPManager] 
+2012-07-01 11:27:29,608 WARN - box4j-config.properties not found in classpath, use box4j-config-default.properties. [cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.core.BoxHTTPManager] 
+2012-07-01 11:27:29,682 DEBUG - ##### doGet-start  #####, url=https://www.box.net/api/1.0/rest?action=get_ticket&api_key=kvh1n6veb9c4ver0j5bf21yrkz3f148x [cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.core.BoxHTTPManager] 
+2012-07-01 11:27:30,765 DEBUG - ##### doGet-end    #####, used time: 1079 ms,response=
+<?xml version="1.0" encoding="UTF-8"?>
+<response><status>get_ticket_ok</status><ticket>4th6s05pbaqdxlxa87ri7hsibvd8xqn4</ticket></response>
+ [cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.core.BoxHTTPManager] 
+2012-07-01 11:27:30,768 DEBUG - ##### doGet-start  #####, url=https://www.box.net/api/1.0/rest?action=get_ticket&api_key=kvh1n6veb9c4ver0j5bf21yrkz3f148x [cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.core.BoxHTTPManager] 
+2012-07-01 11:27:30,935 DEBUG - ##### doGet-end    #####, used time: 167 ms,response=
+<?xml version="1.0" encoding="UTF-8"?>
+<response><status>get_ticket_ok</status><ticket>l03ipv843aj3ovabrcrg59j0d5bthliq</ticket></response>
+ [cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.core.BoxHTTPManager] 
+2012-07-01 11:28:02,425 DEBUG - ##### doGet-start  #####, url=https://www.box.net/api/1.0/rest?action=get_auth_token&api_key=kvh1n6veb9c4ver0j5bf21yrkz3f148x&ticket=l03ipv843aj3ovabrcrg59j0d5bthliq [cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.core.BoxHTTPManager] 
+2012-07-01 11:28:05,836 DEBUG - ##### doGet-end    #####, used time: 3411 ms,response=
+<?xml version="1.0" encoding="UTF-8"?>
+<response><status>get_auth_token_ok</status><auth_token>qjm9kbjb313brvkloby12bjx6bvjl0me</auth_token><user><login>drewwicke@gmail.com</login><email>drewwicke@gmail.com</email><access_id>177740514</access_id><user_id>177740514</user_id><space_amount>53687091200</space_amount><space_used>804458545</space_used><max_upload_size>104857600</max_upload_size><sharing_disabled/></user></response>
+ [cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.core.BoxHTTPManager] 
