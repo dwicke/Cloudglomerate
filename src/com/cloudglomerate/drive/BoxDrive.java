@@ -8,6 +8,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import cn.com.believer.songyuanframework.openapi.storage.box.BoxExternalAPI;
 import cn.com.believer.songyuanframework.openapi.storage.box.factories.BoxRequestFactory;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.DownloadRequest;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.GetAccountTreeRequest;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.GetAccountTreeResponse;
 import cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.SimpleBoxImpl;
@@ -46,8 +47,68 @@ public class BoxDrive implements IDrive {
 	@Override
 	public IDrive download(AbstractFile file, File toLocation) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		if (file.isFolder())
+		{
+			System.out.println(file.getFileName() + " is a folder and is from " + Cloud.BOX.name());
+			((BoxFolder)file).clearFiles();
+			list(((BoxFolder)file));
+
+			File newFolder = new File(toLocation, file.getFileName());
+			newFolder.mkdir();
+			for (AbstractFile abfile : ((BoxFolder)file).getContents())
+			{
+				System.out.println("item in folder is: " + abfile.getFileName());
+			}
+			downloadFolder(file, newFolder);
+		}
+		else
+		{
+			File newfile = new File(toLocation, file.getFileName());
+			download(((BoxFile) file).getBoxFile().getId(), newfile);
+		}
+		return this;
 	}
+	
+	private void downloadFolder(AbstractFile file, File toLocation)
+	{
+		BoxFolder folder = (BoxFolder) file;
+		folder.getContents().remove(0);
+		for (AbstractFile abfile : folder.getContents())
+		{
+			if (abfile.isFolder() )
+			{
+				File newFolder = new File(toLocation, abfile.getFileName());
+				newFolder.mkdir();
+				((BoxFolder)abfile).clearFiles();
+				list(((BoxFolder)abfile));
+				downloadFolder(abfile,newFolder);
+			}
+			else
+			{
+				File newFolder = new File(toLocation, abfile.getFileName());
+				System.out.println("the new file is " + newFolder.toString());
+				download(((BoxFile) abfile).getBoxFile().getId(), newFolder);
+			}
+		}
+	}
+	
+	private void download(String uploadedFileId, File toLocation) {
+		String apiKey = boxData.getAPIKey();
+		String authToken = boxData.getAuthToken().getAuthToken();
+		DownloadRequest downloadRequest = BoxRequestFactory.createDownloadRequest(authToken, uploadedFileId, true,
+                toLocation);
+        try {
+			iBoxExternalAPI.download(downloadRequest);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (BoxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 
 	@Override
 	public IDrive delete(AbstractFile file) {
@@ -78,7 +139,7 @@ public class BoxDrive implements IDrive {
 				folder.getID() == this.myID))
 		{
 
-
+			
 			String apiKey = boxData.getAPIKey();
 			String authToken = boxData.getAuthToken().getAuthToken();
 			String[] params;

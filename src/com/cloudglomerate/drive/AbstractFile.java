@@ -31,6 +31,8 @@ public interface AbstractFile {
 	 */
 	public ID getID();
 	
+	public String getFileName();
+	
 	
 	
 }

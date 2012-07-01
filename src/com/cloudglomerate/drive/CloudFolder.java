@@ -40,11 +40,21 @@ public class CloudFolder implements AbstractFile{
 	{
 		files.add(file);
 	}
+	void clearFiles()
+	{
+		files.clear();
+	}
 
 	@Override
 	public ID getID() {
 		// TODO Auto-generated method stub
 		return myID;
+	}
+
+	@Override
+	public String getFileName() {
+		// TODO Auto-generated method stub
+		return "root";
 	}
 	
 	

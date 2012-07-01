@@ -32,7 +32,10 @@ public class Drive implements IDrive, Subscriber {
 	@Override
 	public IDrive download(AbstractFile file, File toLocation) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		drives.get(file.getID()).download(file, toLocation);
+		
+		return this;
 	}
 
 	@Override

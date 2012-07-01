@@ -31,5 +31,9 @@ public class BoxFolder extends CloudFolder {
 		this.folder = file;
 	}
 	
-	
+	@Override
+	public String getFileName() {
+		// TODO Auto-generated method stub
+		return folder.getName();
+	}
 }

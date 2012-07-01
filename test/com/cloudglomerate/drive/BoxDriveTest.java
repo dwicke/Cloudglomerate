@@ -3,6 +3,7 @@ package com.cloudglomerate.drive;
 import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -27,7 +28,31 @@ public class BoxDriveTest {
 
 	@Test
 	public void testDownload() {
-		fail("Not yet implemented");
+		File f = new File(File.separator + "home/drew/testdownload");
+		Response resp = CloudManager.getConnectionManager().requestConnection(Cloud.BOX);
+		System.out.println(resp.getConfirmURL());
+		System.out.println(">>>>>>>>>>> press enter after you are authenticated from box.net page.");
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		br = new BufferedReader(new InputStreamReader(System.in));
+		try {
+			br.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		ID id = CloudManager.getConnectionManager().connect(resp);
+		CloudFolder folder = new CloudFolder();
+		CloudManager.getDrive().list(folder);
+		
+		for (AbstractFile file : folder.getContents())
+		{
+			if (file.getFileName().equals("testfolder"))
+			{
+				System.out.println("the file to download to is: " + f.toString());
+				
+				CloudManager.getDrive().download(file, f);
+			}
+		}
+		CloudManager.getConnectionManager().disconnect(id);
 	}
 
 	@Test

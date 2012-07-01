@@ -36,5 +36,11 @@ public class BoxFile extends CloudFile {
 	{
 		return bFile;
 	}
+
+	@Override
+	public String getFileName() {
+		// TODO Auto-generated method stub
+		return bFile.getName();
+	}
 	
 }
