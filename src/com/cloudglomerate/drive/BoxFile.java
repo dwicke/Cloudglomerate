@@ -1,13 +1,14 @@
 package com.cloudglomerate.drive;
 
 import cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.objects.BoxFileImpl;
+import cn.com.believer.songyuanframework.openapi.storage.box.objects.BoxAbstractFile;
 
 import com.cloudglomerate.interfaces.Cloud;
 import com.cloudglomerate.util.ID;
 
 public class BoxFile extends CloudFile {
 	
-	private BoxFileImpl bFile;
+	private BoxAbstractFile bFile;
 
 	public BoxFile(ID id) {
 		// TODO Auto-generated constructor stub
@@ -26,11 +27,14 @@ public class BoxFile extends CloudFile {
 		return myid;
 	}
 
-	void setBoxFile(BoxFileImpl file)
+	void setBoxFile(BoxAbstractFile file)
 	{
 		bFile = file;
 	}
 	
-	
+	BoxAbstractFile getBoxFile()
+	{
+		return bFile;
+	}
 	
 }

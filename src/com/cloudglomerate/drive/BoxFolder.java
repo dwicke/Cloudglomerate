@@ -1,13 +1,14 @@
 package com.cloudglomerate.drive;
 
 import cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.objects.BoxFolderImpl;
+import cn.com.believer.songyuanframework.openapi.storage.box.objects.BoxAbstractFile;
 
 import com.cloudglomerate.interfaces.Cloud;
 import com.cloudglomerate.util.ID;
 
 public class BoxFolder extends CloudFolder {
 	
-	private BoxFolderImpl folder;
+	private BoxAbstractFile folder;
 	
 	public BoxFolder(ID myID)
 	{
@@ -20,14 +21,14 @@ public class BoxFolder extends CloudFolder {
 		return Cloud.BOX;
 	}
 	
-	BoxFolderImpl getBoxFolder()
+	BoxAbstractFile getBoxFolder()
 	{
 		return folder;
 	}
 	
-	void setBoxFolder(BoxFolderImpl folder)
+	void setBoxFolder(BoxAbstractFile file)
 	{
-		this.folder = folder;
+		this.folder = file;
 	}
 	
 	

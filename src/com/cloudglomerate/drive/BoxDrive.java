@@ -104,7 +104,7 @@ public class BoxDrive implements IDrive {
 			}
 			else
 			{
-				folderID = ((BoxFolder)folder).getBoxFolder().getFolderId();
+				folderID = ((BoxFolder)folder).getBoxFolder().getId();
 			}
 
 
@@ -127,21 +127,15 @@ public class BoxDrive implements IDrive {
 				BoxAbstractFile file = (BoxAbstractFile) node.getUserObject();
 				if (file.isFolder())
 				{
-					BoxFolderImpl bfolder = (BoxFolderImpl) file;
 					BoxFolder myFold = new BoxFolder(myID);
-					
+					myFold.setBoxFolder(file);
 					folder.addFile(myFold);
 				}
 				else 
 				{
-					BoxFileImpl bfile = (BoxFileImpl) file;
 					BoxFile boxfile = new BoxFile(myID);
-					boxfile.setBoxFile(bfile);
+					boxfile.setBoxFile(file);
 					folder.addFile(boxfile);
-				}
-				if (file != null)
-				{
-					System.out.println(file.getName());
 				}
 
 			}
