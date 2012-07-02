@@ -42,5 +42,10 @@ public class BoxFile extends CloudFile {
 		// TODO Auto-generated method stub
 		return bFile.getName();
 	}
+        
+        public String toString()
+        {
+            return bFile.getName() + " - " + whichCloud().name() + " file";
+        }
 	
 }

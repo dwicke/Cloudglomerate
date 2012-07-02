@@ -30,3 +30,5 @@ local.properties
 
 # PDT-specific
 .buildpath
+/nbproject/private/
+/build/

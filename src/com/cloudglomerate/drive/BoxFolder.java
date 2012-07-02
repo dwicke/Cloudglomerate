@@ -36,4 +36,9 @@ public class BoxFolder extends CloudFolder {
 		// TODO Auto-generated method stub
 		return folder.getName();
 	}
+        
+        public String toString()
+        {
+            return folder.getName() + " - " + whichCloud() + " folder";
+        }
 }
