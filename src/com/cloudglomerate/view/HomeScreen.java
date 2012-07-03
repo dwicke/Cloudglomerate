@@ -31,6 +31,7 @@ import javax.swing.event.HyperlinkListener;
  */
 public class HomeScreen extends javax.swing.JFrame {
 
+    CloudFolder fold;
     /**
      * Creates new form HomeScreen
      */
@@ -52,6 +53,7 @@ public class HomeScreen extends javax.swing.JFrame {
         boxLogin = new javax.swing.JButton();
         Listbt = new javax.swing.JButton();
         downloadBt = new javax.swing.JButton();
+        parentDirbt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,6 +80,13 @@ public class HomeScreen extends javax.swing.JFrame {
             }
         });
 
+        parentDirbt.setText("parent directory");
+        parentDirbt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                parentDirbtActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,9 +99,11 @@ public class HomeScreen extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Listbt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(downloadBt))
+                        .addComponent(downloadBt)
+                        .addGap(18, 18, 18)
+                        .addComponent(parentDirbt))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(312, Short.MAX_VALUE))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,7 +112,8 @@ public class HomeScreen extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(boxLogin)
                     .addComponent(Listbt)
-                    .addComponent(downloadBt))
+                    .addComponent(downloadBt)
+                    .addComponent(parentDirbt))
                 .addGap(37, 37, 37)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
                 .addContainerGap())
@@ -161,18 +173,6 @@ public class HomeScreen extends javax.swing.JFrame {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
             final JDialog dialog = new JDialog(this,
                     "Login",
                     true);
@@ -208,7 +208,7 @@ public class HomeScreen extends javax.swing.JFrame {
             int value = ((Integer) optionPane.getValue()).intValue();
             if (value == JOptionPane.YES_OPTION) {
                 CloudManager.getConnectionManager().connect(resp);
-                CloudFolder fold = new CloudFolder();
+                fold = new CloudFolder();
                 CloudManager.getDrive().list(fold);
                 DefaultListModel fileModel = new DefaultListModel();
                 for (AbstractFile file : fold.getContents()) {
@@ -231,7 +231,7 @@ public class HomeScreen extends javax.swing.JFrame {
 
         AbstractFile folder = (AbstractFile) fileList.getSelectedValue();
         if (folder.isFolder()) {
-            CloudFolder fold = (CloudFolder) folder;
+            fold = (CloudFolder) folder;
             CloudManager.getDrive().list(fold);
             DefaultListModel fileModel = new DefaultListModel();
             for (AbstractFile file : fold.getContents()) {
@@ -247,16 +247,28 @@ public class HomeScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         List vals = fileList.getSelectedValuesList();
         final JFileChooser fc = new JFileChooser();
-        int returnVal = fc.showOpenDialog(this);
+       fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int returnVal =  fc.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
-            File loc = fc.getCurrentDirectory();
+            File loc = fc.getSelectedFile();//fc.getCurrentDirectory();
+            System.out.println("The directory to dowonload to is " + loc.toPath());
             for (Object val : vals) {
                 AbstractFile file = (AbstractFile) val;
                 CloudManager.getDrive().download(file, loc);
             }
         }
     }//GEN-LAST:event_downloadBtActionPerformed
+
+    private void parentDirbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parentDirbtActionPerformed
+        // TODO add your handling code here:
+        fold = CloudManager.getDrive().listParentDirectory(fold);
+            DefaultListModel fileModel = new DefaultListModel();
+            for (AbstractFile file : fold.getContents()) {
+                fileModel.addElement(file);
+            }
+            fileList.setModel(fileModel);
+    }//GEN-LAST:event_parentDirbtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -305,5 +317,6 @@ public class HomeScreen extends javax.swing.JFrame {
     private javax.swing.JButton downloadBt;
     private javax.swing.JList fileList;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton parentDirbt;
     // End of variables declaration//GEN-END:variables
 }

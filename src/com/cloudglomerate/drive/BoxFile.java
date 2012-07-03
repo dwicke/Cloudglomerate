@@ -7,14 +7,14 @@ import com.cloudglomerate.interfaces.Cloud;
 import com.cloudglomerate.util.ID;
 
 public class BoxFile extends CloudFile {
-	
+
 	private BoxAbstractFile bFile;
 
 	public BoxFile(ID id) {
 		// TODO Auto-generated constructor stub
 		this.myid = id;
 	}
-	
+
 	@Override
 	public Cloud whichCloud() {
 		// TODO Auto-generated method stub
@@ -31,7 +31,7 @@ public class BoxFile extends CloudFile {
 	{
 		bFile = file;
 	}
-	
+
 	BoxAbstractFile getBoxFile()
 	{
 		return bFile;
@@ -42,10 +42,12 @@ public class BoxFile extends CloudFile {
 		// TODO Auto-generated method stub
 		return bFile.getName();
 	}
-        
-        public String toString()
-        {
-            return bFile.getName() + " - " + whichCloud().name() + " file";
-        }
+
+	public String toString()
+	{
+		return bFile.getName() + " - " + whichCloud().name() + " file";
+	}
+
 	
+
 }

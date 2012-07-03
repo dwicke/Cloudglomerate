@@ -2,6 +2,7 @@ package com.cloudglomerate.drive;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -26,7 +27,7 @@ public class BoxDrive implements IDrive {
 
 	private BoxResponse boxData;
 	private ID myID;
-	private BoxFolder currDir, parentDir;
+	
 	BoxExternalAPI iBoxExternalAPI = new SimpleBoxImpl();
 
 
@@ -75,6 +76,7 @@ public class BoxDrive implements IDrive {
 		BoxFolder folder = (BoxFolder) file;
 		for (AbstractFile abfile : folder.getContents())
 		{
+		
 			if (abfile.isFolder() )
 			{
 				File newFolder = new File(toLocation, abfile.getFileName());
@@ -186,12 +188,8 @@ public class BoxDrive implements IDrive {
 			
 				DefaultMutableTreeNode node = (DefaultMutableTreeNode) preOrder.nextElement();
 				BoxAbstractFile file = (BoxAbstractFile) node.getUserObject();
-				if (node.isRoot())
-				{
-					parentDir = currDir;
-					currDir = new BoxFolder(myID);
-					currDir.setBoxFolder(file);
-					
+				if (node.isRoot()){
+					// ignore the root
 				}
 				else if (file.isFolder())
 				{
@@ -220,7 +218,7 @@ public class BoxDrive implements IDrive {
 
 
 	@Override
-	public IDrive listParentDirectory(CloudFolder folder) {
+	public CloudFolder listParentDirectory(CloudFolder folder) {
 		// TODO Auto-generated method stub
 		
 		return null;

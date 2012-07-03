@@ -2,12 +2,15 @@ package com.cloudglomerate.drive;
 
 import java.io.File;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.cloudglomerate.connection.Connection;
 import com.cloudglomerate.connection.Response;
 import com.cloudglomerate.connection.Response.Status;
+import com.cloudglomerate.interfaces.Cloud;
 import com.cloudglomerate.util.ID;
 import com.cloudglomerate.util.IDManager;
 import com.cloudglomerate.util.Subscriber;
@@ -16,9 +19,10 @@ public class Drive implements IDrive, Subscriber {
 
 	// integer is the key that identifies the drive
 	private Map<ID, IDrive> drives;
-
+	private List<CloudFolder> parentDir;
 	public Drive()
 	{
+		parentDir = new ArrayList<CloudFolder>();
 		drives = new HashMap<ID, IDrive>();
 	}
 
@@ -59,7 +63,7 @@ public class Drive implements IDrive, Subscriber {
 	@Override
 	public IDrive list(CloudFolder folder) {
 		// TODO Auto-generated method stub
-		
+		parentDir.add(folder);
 		for (IDrive drive : drives.values())
 		{
 			drive.list(folder);
@@ -94,9 +98,18 @@ public class Drive implements IDrive, Subscriber {
 
 
 	@Override
-	public IDrive listParentDirectory(CloudFolder folder) {
+	public CloudFolder listParentDirectory(CloudFolder folder) {
 		// TODO Auto-generated method stub
-		return null;
+		if (folder.isFolder() && folder.whichCloud() == Cloud.ROOT)
+		{
+			// we are in root
+			return folder;
+		}
+		else
+		{
+			parentDir = (List<CloudFolder>) parentDir.subList(0, parentDir.indexOf(folder) );
+			return parentDir.get(parentDir.size() - 1);
+		}
 	}
 
 

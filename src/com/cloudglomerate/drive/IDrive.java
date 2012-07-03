@@ -62,6 +62,6 @@ public interface IDrive {
 	 * @param folder
 	 * @return
 	 */
-	public IDrive listParentDirectory(CloudFolder folder);
+	public CloudFolder listParentDirectory(CloudFolder folder);
 	
 }

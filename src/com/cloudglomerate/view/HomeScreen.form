@@ -31,10 +31,12 @@
                       <Component id="Listbt" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="downloadBt" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="parentDirbt" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane2" min="-2" pref="294" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="312" max="32767" attributes="0"/>
+              <EmptySpace pref="162" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -46,6 +48,7 @@
                   <Component id="boxLogin" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Listbt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="downloadBt" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="parentDirbt" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Component id="jScrollPane2" pref="336" max="32767" attributes="0"/>
@@ -93,6 +96,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="downloadBtActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="parentDirbt">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="parent directory"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="parentDirbtActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
