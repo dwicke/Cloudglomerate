@@ -30,7 +30,10 @@ public class Drive implements IDrive, Subscriber {
 	@Override
 	public IDrive upload(AbstractFile file, CloudFolder toLocation) {
 		// TODO Auto-generated method stub
-		return null;
+		// currently uploading to "root" does not work.
+		drives.get(toLocation.getID()).upload(file, toLocation);
+
+		return this;
 	}
 
 	@Override

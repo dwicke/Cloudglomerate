@@ -39,6 +39,8 @@ public class ConnectionManager {
 		{
 		case BOX:
 			return ConnectionFactory.newBoxConnection().requestConnection();
+		case GOOGLE:
+			return ConnectionFactory.newGoogleConnection().requestConnection();
 		default:
 			return null;
 		}
@@ -60,6 +62,14 @@ public class ConnectionManager {
 		{
 		case BOX:
 			conn = ConnectionFactory.newBoxConnection(resp);
+			if (conn.connect().getStatus() == Response.Status.CONNECTED)
+			{
+				id = IDManager.nextID();
+				conns.put(id, conn);
+			}
+			break;
+		case GOOGLE:
+			conn = ConnectionFactory.newGoogleConnection(resp);
 			if (conn.connect().getStatus() == Response.Status.CONNECTED)
 			{
 				id = IDManager.nextID();

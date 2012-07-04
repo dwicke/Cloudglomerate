@@ -13,6 +13,8 @@ public class DriveFactory {
 		{
 		case BOX:
 			return new BoxDrive((BoxResponse)conn, id);
+		case GOOGLE:
+			return new GoogleDrive((GoogleResponse) conn, id);
 		default:
 			return null;
 		}

@@ -11,4 +11,14 @@ public class ConnectionFactory {
 		return new BoxConnection(resp);
 	}
 
+	public static Connection newGoogleConnection() {
+		// TODO Auto-generated method stub
+		return new GoogleConnection();
+	}
+
+	public static Connection newGoogleConnection(Response resp) {
+		// TODO Auto-generated method stub
+		return new GoogleConnection(resp);
+	}
+
 }

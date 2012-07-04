@@ -4,19 +4,25 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import cn.com.believer.songyuanframework.openapi.storage.box.BoxExternalAPI;
 import cn.com.believer.songyuanframework.openapi.storage.box.factories.BoxRequestFactory;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.DeleteRequest;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.DownloadRequest;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.GetAccountTreeRequest;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.GetAccountTreeResponse;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.UploadRequest;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.UploadResponse;
 import cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.SimpleBoxImpl;
 import cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.objects.BoxFileImpl;
 import cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.objects.BoxFolderImpl;
 import cn.com.believer.songyuanframework.openapi.storage.box.objects.BoxAbstractFile;
 import cn.com.believer.songyuanframework.openapi.storage.box.objects.BoxException;
+import cn.com.believer.songyuanframework.openapi.storage.box.objects.UploadResult;
 
 import com.cloudglomerate.connection.BoxConnection;
 import com.cloudglomerate.connection.BoxResponse;
@@ -26,6 +32,7 @@ import com.cloudglomerate.util.ID;
 public class BoxDrive implements IDrive {
 
 	private BoxResponse boxData;
+	
 	private ID myID;
 	
 	BoxExternalAPI iBoxExternalAPI = new SimpleBoxImpl();
@@ -42,6 +49,29 @@ public class BoxDrive implements IDrive {
 	@Override
 	public IDrive upload(AbstractFile file, CloudFolder toLocation) {
 		// TODO Auto-generated method stub
+		System.out.println("In BoxDrive upload");
+		if (file instanceof LocalFile && toLocation.whichCloud() == Cloud.BOX)
+		{
+			System.out.println("Uploading the file");
+			String authToken = boxData.getAuthToken().getAuthToken();
+			LocalFile lFile = (LocalFile)file;
+			BoxFolder bFold = (BoxFolder)toLocation;
+			Map fileMap = new HashMap();
+            fileMap.put(lFile.getFileName(), lFile.getFile());
+            UploadRequest uploadRequest = BoxRequestFactory.createUploadRequest(authToken, true, bFold.getBoxFolder().getId(),
+                    fileMap);
+            UploadResponse uploadResponse = null;
+			try {
+				uploadResponse = iBoxExternalAPI.upload(uploadRequest);
+			} catch (IOException | BoxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			toLocation.clearFiles();
+			list(toLocation);
+          
+		}
 		return null;
 	}
 
@@ -95,7 +125,7 @@ public class BoxDrive implements IDrive {
 	}
 	
 	private void download(String uploadedFileId, File toLocation) {
-		String apiKey = boxData.getAPIKey();
+		
 		String authToken = boxData.getAuthToken().getAuthToken();
 		DownloadRequest downloadRequest = BoxRequestFactory.createDownloadRequest(authToken, uploadedFileId, true,
                 toLocation);
@@ -114,7 +144,18 @@ public class BoxDrive implements IDrive {
 	@Override
 	public IDrive delete(AbstractFile file) {
 		// TODO Auto-generated method stub
-		return null;
+		String apiKey = boxData.getAPIKey();
+		String authToken = boxData.getAuthToken().getAuthToken();
+		
+		DeleteRequest deleteRequest = BoxRequestFactory.createDeleteRequest(apiKey, authToken, "file",
+                ((BoxFile)file).getBoxFile().getId());
+        try {
+			iBoxExternalAPI.delete(deleteRequest);
+		} catch (IOException | BoxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return this;
 	}
 
 	@Override
@@ -219,8 +260,7 @@ public class BoxDrive implements IDrive {
 
 	@Override
 	public CloudFolder listParentDirectory(CloudFolder folder) {
-		// TODO Auto-generated method stub
-		
+		//will not implement this...
 		return null;
 	}
 
